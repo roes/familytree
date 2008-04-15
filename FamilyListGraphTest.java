@@ -18,19 +18,19 @@ public class FamilyListGraphTest extends TestCase {
 
 	protected ArrayList<Person> familyCreation(){
 		family = new ArrayList<Person>();
-		father = new Person(0, "Moo", 0);
+		father = new Person(0, "Moo", Person.Sex.MALE);
 		family.add(father);
-		mother = new Person(1, "Wii", 1);
+		mother = new Person(1, "Wii", Person.Sex.FEMALE);
 		mother.setSpouse(father);
 		father.setSpouse(mother);
 		family.add(mother);
-		child = new Person(2, "Bää", 1);
+		child = new Person(2, "Bää", Person.Sex.FEMALE);
 		family.add(child);
 		child.setFather(father);
 		child.setMother(mother);
 		father.setChildren(child);
 		mother.setChildren(child);
-		gfather = new Person(3, "Buzz", 0);
+		gfather = new Person(3, "Buzz", Person.Sex.MALE);
 		family.add(gfather);
 		father.setFather(gfather);
 		gfather.setChildren(father);

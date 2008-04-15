@@ -1,9 +1,18 @@
 import java.util.ArrayList;
 
 public class Person implements Comparable<Person>{
+	public static enum Sex {
+		MALE,
+		FEMALE;
+		
+		public String toString() {
+			return this.name().toLowerCase();
+		}
+	}
+	
 	private int refnr;
 	private String name;
-	private int sex;		// 0 for male, 1 for female.
+	private Sex sex;
 	private int birthdate;
 	private int deathdate;
 	private Person father;
@@ -12,14 +21,14 @@ public class Person implements Comparable<Person>{
 	private ArrayList<Person> children;
 	private ArrayList<Person> exspouses;
 	
-	public Person(int refnr, String name, int sex){
+	public Person(int refnr, String name, Sex sex){
 		this.refnr = refnr;
 		this.name = name;
 		this.sex = sex;
 		children = new ArrayList<Person>();
 		exspouses = new ArrayList<Person>();
 	}
-	public Person(int refnr, String name, int sex, int birthdate){
+	public Person(int refnr, String name, Sex sex, int birthdate){
 		this.refnr = refnr;
 		this.name = name;
 		this.sex = sex;
@@ -27,7 +36,7 @@ public class Person implements Comparable<Person>{
 		children = new ArrayList<Person>();
 		exspouses = new ArrayList<Person>();
 	}
-	public Person(int refnr, String name, int sex, int birthdate, int deathdate) {
+	public Person(int refnr, String name, Sex sex, int birthdate, int deathdate) {
 		this.refnr = refnr;
 		this.name = name;
 		this.sex = sex;
@@ -60,10 +69,10 @@ public class Person implements Comparable<Person>{
 	public void setRefnr(int refnr) {
 		this.refnr = refnr;
 	}
-	public int getSex() {
+	public Sex getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
 	public boolean hasChildren(){

@@ -34,7 +34,7 @@ public class FamilyTreeImporter {
 				int nr = Integer.parseInt(pm.group(1));
 				ref.put(nr, antal);
 				String name = "";
-				int sex = 0;
+				Person.Sex sex = Person.Sex.MALE;
 				int birth = 0;
 				int death = 0;
 				while(!scan.hasNext(gedcomPatterns.get("entity"))){
@@ -47,7 +47,7 @@ public class FamilyTreeImporter {
 						name = nm.group(1).replaceAll("/", "");
 					}
 					else if(sm.matches()){
-						sex = sm.group(1).equals("M") ? 0 : 1;
+						sex = sm.group(1).equals("M") ? Person.Sex.MALE : Person.Sex.FEMALE;
 					}
 					else if(bm.matches()){
 						while(!scan.hasNext(gedcomPatterns.get("topic"))){
