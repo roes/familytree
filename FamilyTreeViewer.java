@@ -100,7 +100,7 @@ public class FamilyTreeViewer{
 			Person root = familyTree.getPerson(name);
 			StringBuilder info = new StringBuilder();
 			info.append("Name: " + root.getName() + "\n");
-			info.append("Sex: " + (root.getSex() == 0 ? "male" : "female") + "\n");
+			info.append("Sex: " + (root.getSex().name().toLowerCase()) + "\n");
 			info.append("Birthdate: " + root.getBirthdate() +"\n");
 			info.append("Deathdate: " + root.getDeathdate() + "\n");
 			JOptionPane.showMessageDialog(viewer, info);
@@ -126,12 +126,16 @@ public class FamilyTreeViewer{
 			if(status == JFileChooser.APPROVE_OPTION){
 				file = chooser.getSelectedFile();
 				familyTree = new FamilyTreeImporter().importGedcom(file);
-				drawFamily(0);
+				if (familyTree.getNumMembers() > 0) {
+					drawFamily(0);
+				} else {
+					JOptionPane.showMessageDialog(viewer, "No family members found.",
+		                       "No family members found", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		}
 	}
 	public static void main(String[] args) {
-		FamilyTreeViewer graphicalFamilyTree = new FamilyTreeViewer();
-
+		new FamilyTreeViewer();
 	}
 }
