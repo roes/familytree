@@ -4,19 +4,19 @@ public class FamilyListGraph {
 	private int numMembers;
 	private ArrayList<Person> family;
 	
-	public FamilyListGraph(int antalMedlemmar) {
-		this.numMembers = antalMedlemmar;
+	public FamilyListGraph(int numMembers) {
+		this.numMembers = numMembers;
 		family = new ArrayList<Person>();
 	}
-	public FamilyListGraph(int antalMedlemmar, ArrayList<Person> family) {
-		this.numMembers = antalMedlemmar;
+	public FamilyListGraph(int numMembers, ArrayList<Person> family) {
+		this.numMembers = numMembers;
 		this.family = family;
 	}
 	public int getNumMembers() {
 		return numMembers;
 	}
-	public void setNumMembers(int antalMedlemmar) {
-		this.numMembers = antalMedlemmar;
+	public void setNumMembers(int numMembers) {
+		this.numMembers = numMembers;
 	}
 	public ArrayList<Person> getFamily() {
 		return family;
