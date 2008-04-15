@@ -1,22 +1,22 @@
 import java.util.ArrayList;
 
 public class FamilyListGraph {
-	private int antalMedlemmar;
+	private int numMembers;
 	private ArrayList<Person> family;
 	
 	public FamilyListGraph(int antalMedlemmar) {
-		this.antalMedlemmar = antalMedlemmar;
+		this.numMembers = antalMedlemmar;
 		family = new ArrayList<Person>();
 	}
 	public FamilyListGraph(int antalMedlemmar, ArrayList<Person> family) {
-		this.antalMedlemmar = antalMedlemmar;
+		this.numMembers = antalMedlemmar;
 		this.family = family;
 	}
-	public int getAntalMedlemmar() {
-		return antalMedlemmar;
+	public int getNumMembers() {
+		return numMembers;
 	}
-	public void setAntalMedlemmar(int antalMedlemmar) {
-		this.antalMedlemmar = antalMedlemmar;
+	public void setNumMembers(int antalMedlemmar) {
+		this.numMembers = antalMedlemmar;
 	}
 	public ArrayList<Person> getFamily() {
 		return family;
@@ -26,7 +26,7 @@ public class FamilyListGraph {
 	}
 	public void addMember(Person p){
 		family.add(p);
-		antalMedlemmar++;
+		numMembers++;
 	}
 	public Person getPerson(String name){
 		for(Person p : family){

@@ -48,8 +48,8 @@ public class FamilyListGraphTest extends TestCase {
 	
 	public void testFamilyGraph(){
 		addFamily();
-		assertEquals(g0.getAntalMedlemmar(), 4);
-		assertEquals(g1.getAntalMedlemmar(), 4);
+		assertEquals(g0.getNumMembers(), 4);
+		assertEquals(g1.getNumMembers(), 4);
 		assertEquals(g0.getFamily(), family);
 		assertEquals(g1.getFamily(), family);
 		assertEquals(g0.getFamily().get(0), g1.getFamily().get(0));
