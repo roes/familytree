@@ -183,7 +183,7 @@ public class FamilyTreeImporter {
 		return "12";
 	}
 	public void createGedcomPatterns(){
-		gedcomPatterns.put("person", Pattern.compile("0\\s@I(\\d+)@\\sINDI"));
+		gedcomPatterns.put("person", Pattern.compile("0\\s@\\S+?(\\d+)@\\sINDI"));
 		gedcomPatterns.put("family", Pattern.compile("0\\s@\\w+@\\sFAM"));
 		gedcomPatterns.put("name", Pattern.compile("1\\sNAME\\s(.+)"));
 		gedcomPatterns.put("sex", Pattern.compile("1\\sSEX\\s(\\w)"));

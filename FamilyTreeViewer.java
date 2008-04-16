@@ -20,6 +20,16 @@ public class FamilyTreeViewer{
     private static final int VIEWER_HEIGHT = 400;
     private static final int NODE_WIDTH = 100;
     private static final int NODE_HEIGHT = 40;
+    private static final int NODE_MARGIN = 20;
+    private static final int ROW_HEIGHT = NODE_HEIGHT + NODE_MARGIN;
+    // These ones should probably go away eventually
+    private static final int SELF_ROW = 80;
+    private static final int PARENT_ROW = SELF_ROW - ROW_HEIGHT;
+    private static final int CHILD_ROW = SELF_ROW + ROW_HEIGHT;
+    private static final int SELF_POS = 250;
+    private static final int FATHER_POS = SELF_POS + (NODE_WIDTH + NODE_MARGIN) / 2;
+    private static final int MOTHER_POS = SELF_POS - (NODE_WIDTH + NODE_MARGIN) / 2;
+    private static final int SPOUSE_POS = SELF_POS - NODE_WIDTH - NODE_MARGIN;
 
 	JFrame viewer;
 	FamilyListGraph familyTree;
@@ -58,41 +68,41 @@ public class FamilyTreeViewer{
 		if(root.hasMother()){
 			JButton mother = new JButton(root.getMother().getName());
 			tree.add(mother);
-			mother.setBounds(190, 20, NODE_WIDTH, NODE_HEIGHT);
+			mother.setBounds(MOTHER_POS, PARENT_ROW, NODE_WIDTH, NODE_HEIGHT);
 			mother.addActionListener(new ButtonListener());
 		}
 		if(root.hasFather()){
 			JButton father = new JButton(root.getFather().getName());
 			tree.add(father);
-			father.setBounds(310, 20, NODE_WIDTH, NODE_HEIGHT);
+			father.setBounds(FATHER_POS, PARENT_ROW, NODE_WIDTH, NODE_HEIGHT);
 			father.addActionListener(new ButtonListener());
 		}
 		JButton me = new JButton(root.getName());
 		tree.add(me);
-		me.setBounds(250, 80, NODE_WIDTH, NODE_HEIGHT);
+		me.setBounds(SELF_POS, SELF_ROW, NODE_WIDTH, NODE_HEIGHT);
 		me.addActionListener(new MainButtonListener());
 		if(root.hasSpouse()){
 			JButton spouse = new JButton(root.getSpouse().getName());
 			tree.add(spouse);
-			spouse.setBounds(130, 80, NODE_WIDTH, NODE_HEIGHT);
+			spouse.setBounds(SPOUSE_POS, SELF_ROW, NODE_WIDTH, NODE_HEIGHT);
 			spouse.addActionListener(new ButtonListener());
 		}
 		if(root.hasChildren()){
 			ArrayList<Person> children = root.getChildren();
 			int pos = children.size();
-			pos = 250 - pos*NODE_WIDTH/2 + NODE_WIDTH/2;
+			pos = SELF_POS - pos*NODE_WIDTH/2 + NODE_WIDTH/2;
 			if(pos < 0){
-				pos = 20;
+				pos = NODE_MARGIN;
 			}
 			for(Person c : children){
 				JButton child = new JButton(c.getName());
 				tree.add(child);
-				child.setBounds(pos, 140, NODE_WIDTH, NODE_HEIGHT);
-				pos += NODE_WIDTH + 20;
+				child.setBounds(pos, CHILD_ROW, NODE_WIDTH, NODE_HEIGHT);
+				pos += NODE_WIDTH + NODE_MARGIN;
 				child.addActionListener(new ButtonListener());
 			}
 		}
-		viewer.repaint();
+		tree.repaint();
 		viewer.setVisible(true);
 	}
 	// Skriver ut info om personen i mitten
