@@ -4,10 +4,6 @@ public class Person implements Comparable<Person>{
 	public static enum Sex {
 		MALE,
 		FEMALE;
-		
-		public String toString() {
-			return this.name().toLowerCase();
-		}
 	}
 	
 	private int refnr;

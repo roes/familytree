@@ -14,8 +14,13 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
 public class FamilyTreeViewer{
+	// Some GUI constants
+    private static final int VIEWER_WIDTH = 600;
+    private static final int VIEWER_HEIGHT = 400;
+    private static final int NODE_WIDTH = 100;
+    private static final int NODE_HEIGHT = 40;
+
 	JFrame viewer;
 	FamilyListGraph familyTree;
 	File file;
@@ -31,7 +36,7 @@ public class FamilyTreeViewer{
 		createMenubar();
 		viewer.getContentPane().setLayout(null);
 
-		viewer.setSize(600, 400);
+		viewer.setSize(VIEWER_WIDTH, VIEWER_HEIGHT);
 		viewer.setVisible(true);
 	}
 	// Skapar meny
@@ -47,45 +52,43 @@ public class FamilyTreeViewer{
 	// Ritar ut närmaste familjen
 	// TODO Lägg till pilar
 	private void drawFamily(int refnr){
-		int nodeXsize = 100;
-		int nodeYsize = 40;
 		Container tree = viewer.getContentPane();
 		tree.removeAll();
 		Person root = familyTree.getFamily().get(refnr);
 		if(root.hasMother()){
 			JButton mother = new JButton(root.getMother().getName());
 			tree.add(mother);
-			mother.setBounds(190, 20, nodeXsize, nodeYsize);
+			mother.setBounds(190, 20, NODE_WIDTH, NODE_HEIGHT);
 			mother.addActionListener(new ButtonListener());
 		}
 		if(root.hasFather()){
 			JButton father = new JButton(root.getFather().getName());
 			tree.add(father);
-			father.setBounds(310, 20, nodeXsize, nodeYsize);
+			father.setBounds(310, 20, NODE_WIDTH, NODE_HEIGHT);
 			father.addActionListener(new ButtonListener());
 		}
 		JButton me = new JButton(root.getName());
 		tree.add(me);
-		me.setBounds(250, 80, nodeXsize, nodeYsize);
+		me.setBounds(250, 80, NODE_WIDTH, NODE_HEIGHT);
 		me.addActionListener(new MainButtonListener());
 		if(root.hasSpouse()){
 			JButton spouse = new JButton(root.getSpouse().getName());
 			tree.add(spouse);
-			spouse.setBounds(130, 80, nodeXsize, nodeYsize);
+			spouse.setBounds(130, 80, NODE_WIDTH, NODE_HEIGHT);
 			spouse.addActionListener(new ButtonListener());
 		}
 		if(root.hasChildren()){
 			ArrayList<Person> children = root.getChildren();
 			int pos = children.size();
-			pos = 250 - pos*nodeXsize/2 + nodeXsize/2;
+			pos = 250 - pos*NODE_WIDTH/2 + NODE_WIDTH/2;
 			if(pos < 0){
 				pos = 20;
 			}
 			for(Person c : children){
 				JButton child = new JButton(c.getName());
 				tree.add(child);
-				child.setBounds(pos, 140, nodeXsize, nodeYsize);
-				pos += nodeXsize + 20;
+				child.setBounds(pos, 140, NODE_WIDTH, NODE_HEIGHT);
+				pos += NODE_WIDTH + 20;
 				child.addActionListener(new ButtonListener());
 			}
 		}
