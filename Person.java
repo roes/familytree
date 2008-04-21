@@ -9,8 +9,8 @@ public class Person implements Comparable<Person>{
 	private int refnr;
 	private String name;
 	private Sex sex;
-	private int birthdate;
-	private int deathdate;
+	private Date birthdate;
+	private Date deathdate;
 	private Person father;
 	private Person mother;
 	private Person spouse;
@@ -24,7 +24,7 @@ public class Person implements Comparable<Person>{
 		children = new ArrayList<Person>();
 		exspouses = new ArrayList<Person>();
 	}
-	public Person(int refnr, String name, Sex sex, int birthdate){
+	public Person(int refnr, String name, Sex sex, Date birthdate){
 		this.refnr = refnr;
 		this.name = name;
 		this.sex = sex;
@@ -32,7 +32,7 @@ public class Person implements Comparable<Person>{
 		children = new ArrayList<Person>();
 		exspouses = new ArrayList<Person>();
 	}
-	public Person(int refnr, String name, Sex sex, int birthdate, int deathdate) {
+	public Person(int refnr, String name, Sex sex, Date birthdate, Date deathdate) {
 		this.refnr = refnr;
 		this.name = name;
 		this.sex = sex;
@@ -41,16 +41,16 @@ public class Person implements Comparable<Person>{
 		children = new ArrayList<Person>();
 		exspouses = new ArrayList<Person>();
 	}
-	public int getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(int birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-	public int getDeathdate() {
+	public Date getDeathdate() {
 		return deathdate;
 	}
-	public void setDeathdate(int deathdate) {
+	public void setDeathdate(Date deathdate) {
 		this.deathdate = deathdate;
 	}
 	public String getName() {

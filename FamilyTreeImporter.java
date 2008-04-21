@@ -18,7 +18,7 @@ public class FamilyTreeImporter {
 	
 	public FamilyListGraph importGedcom(File file){
 		ArrayList<Person> family = new ArrayList<Person>();
-		int antal = 0;
+		int count = 0;
 		HashMap<Integer, Integer> ref = new HashMap<Integer, Integer>();
 		try {
 			scan = new Scanner(file);
@@ -31,12 +31,11 @@ public class FamilyTreeImporter {
 			Matcher pm = gedcomPatterns.get("person").matcher(line);
 			Matcher fm = gedcomPatterns.get("family").matcher(line);
 			if(pm.matches()){
+				Date birth = new Date(), death = new Date();
 				int nr = Integer.parseInt(pm.group(1));
-				ref.put(nr, antal);
+				ref.put(nr, count);
 				String name = "";
 				Person.Sex sex = Person.Sex.MALE;
-				int birth = 0;
-				int death = 0;
 				while(!scan.hasNext(gedcomPatterns.get("entity"))){
 					line = scan.nextLine();
 					Matcher nm = gedcomPatterns.get("name").matcher(line);
@@ -50,27 +49,26 @@ public class FamilyTreeImporter {
 						sex = sm.group(1).equals("M") ? Person.Sex.MALE : Person.Sex.FEMALE;
 					}
 					else if(bm.matches()){
-						while(!scan.hasNext(gedcomPatterns.get("topic"))){
+						while(!scan.hasNext(gedcomPatterns.get("topic")) && !scan.hasNext(gedcomPatterns.get("entity"))){
 							line = scan.nextLine();
 							Matcher datem = gedcomPatterns.get("date").matcher(line);
 							if(datem.matches()){
-								birth = createDate(datem.group(1));
+								birth = new Date(datem.group(1));
 							}
 						}
 					}
 					else if(dm.matches()){
-						while(!scan.hasNext(gedcomPatterns.get("topic"))){
+						while(!scan.hasNext(gedcomPatterns.get("topic")) && !scan.hasNext(gedcomPatterns.get("entity"))){
 							line = scan.nextLine();
 							Matcher datem = gedcomPatterns.get("date").matcher(line);
 							if(datem.matches()){
-								death = createDate(datem.group(1));
+								death = new Date(datem.group(1));
 							}
 						}
 					}
 				}
-				Person person = new Person(antal, name, sex, birth, death);
-				family.add(person);
-				antal++;
+				family.add(new Person(count, name, sex, birth, death)); // Should use nr, not count
+				count++;
 			}
 			else if(fm.matches()){
 				int xmarrige = -1;
@@ -146,42 +144,9 @@ public class FamilyTreeImporter {
 				}
 			}
 		}
-		return new FamilyListGraph(antal, family);
+		return new FamilyListGraph(count, family);
 	}
-	public int createDate(String s){
-		String[] date = s.split("\\s");
-		date[1] = getMonth(date[1]);
-		StringBuilder bd = new StringBuilder();
-		bd.append(date[2]);
-		bd.append(date[1].length() == 1 ? "0" + date[1] : date[1]);
-		bd.append(date[0].length() == 1 ? "0" + date[0] : date[0]);
-		return Integer.parseInt(bd.toString());
-	}
-	public String getMonth(String s){
-		if(s.equals("JAN"))
-			return "1";
-		if(s.equals("FEB"))
-			return "2";
-		if(s.equals("MAR"))
-			return "3";
-		if(s.equals("APR"))
-			return "4";
-		if(s.equals("MAY"))
-			return "5";
-		if(s.equals("JUN"))
-			return "6";
-		if(s.equals("JUL"))
-			return "7";
-		if(s.equals("AUG"))
-			return "8";
-		if(s.equals("SEP"))
-			return "9";
-		if(s.equals("OCT"))
-			return "10";
-		if(s.equals("NOV"))
-			return "11";
-		return "12";
-	}
+	
 	public void createGedcomPatterns(){
 		gedcomPatterns.put("person", Pattern.compile("0\\s@\\S+?(\\d+)@\\sINDI"));
 		gedcomPatterns.put("family", Pattern.compile("0\\s@\\w+@\\sFAM"));
