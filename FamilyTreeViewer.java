@@ -58,6 +58,9 @@ public class FamilyTreeViewer{
 		JMenuItem open = new JMenuItem("Open file");
 		open.addActionListener(new OpenActionListener());
 		filemenu.add(open);
+		JMenuItem freebase = new JMenuItem("Freebase import");
+		freebase.addActionListener(new FreebaseActionListener());
+		filemenu.add(freebase);
 	}
 	// Ritar ut närmaste familjen
 	// TODO Lägg till pilar
@@ -145,6 +148,20 @@ public class FamilyTreeViewer{
 					JOptionPane.showMessageDialog(viewer, "No family members found.",
 		                       "No family members found", JOptionPane.WARNING_MESSAGE);
 				}
+			}
+		}
+	}
+	// Öppnar fil
+	public class FreebaseActionListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e){
+			
+			familyTree = new FreeBaseImporter().importFreebase("/guid/9202a8c04000641f80000000051f7983");
+			if (familyTree.getNumMembers() > 0) {
+				drawFamily(0);
+			} else {
+				JOptionPane.showMessageDialog(viewer, "No family members found.",
+	                       "No family members found", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}

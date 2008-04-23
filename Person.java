@@ -80,7 +80,9 @@ public class Person implements Comparable<Person>{
 		return children;
 	}
 	public void setChildren(Person child) {
-		children.add(child);
+		if (!children.contains(child)) {
+			children.add(child);
+		}
 	}
 	public boolean hasExspouses(){
 		if(exspouses.size() == 0)
