@@ -170,6 +170,9 @@ public class Date {
 	
 	private String toString(int num) {
 		String ret = "";
+		if ((this.year[0] == 0) && (this.month[0] == 0) && (this.day[0] == 0)) {
+			return "unknown";
+		}
 		if (this.year[num] != 0) {
 			ret += String.valueOf(this.year[num]);
 		}

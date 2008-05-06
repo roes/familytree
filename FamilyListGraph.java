@@ -29,8 +29,13 @@ public class FamilyListGraph {
 		numMembers++;
 	}
 	public Person getPerson(String name){
+		System.out.println(name);
+		if (name.startsWith("\u2642 ") || name.startsWith("\u2640 ")) {
+			name = name.substring(2);
+		}
+		System.out.println(name);
 		for(Person p : family){
-			if(p.getName() == name){
+			if(p.getName().equals(name)){
 				return p;
 			}
 		}

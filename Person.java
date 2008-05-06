@@ -53,8 +53,20 @@ public class Person implements Comparable<Person>{
 	public void setDeathdate(Date deathdate) {
 		this.deathdate = deathdate;
 	}
+	/**
+	 * @return Name including symbol for the sex.
+	 */
+	public String getSexName() {
+		if (this.getSex() == Sex.MALE) {
+			return "\u2642 " + name;
+		} else if (this.getSex() == Sex.FEMALE) {
+			return "\u2640 " + name;
+		} else {
+			return name;
+		}
+	}
 	public String getName() {
-		return name;
+			return name;
 	}
 	public void setName(String name) {
 		this.name = name;
